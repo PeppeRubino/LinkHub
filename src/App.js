@@ -18,6 +18,11 @@ function App() {
 
   return (
     <div className="bg-gray-100 p-4 w-screen">
+      {/* Musica di sottofondo */}
+      <audio autoPlay loop>
+        <source src="/assets/audio/Menu theme KH.m4a" type="audio/m4a" />
+        Il tuo browser non supporta l'elemento audio.
+      </audio>
       {/* Titolo e Foto */}
       <div className="flex items-center justify-center p-4 bg-white shadow rounded">
         <h1 className="text-2xl font-bold">Link</h1>
@@ -30,10 +35,19 @@ function App() {
 
       {/* Aforisma che cambia */}
       <div className="text-xl mt-6 h-64 bg-gradient-to-b from-white to-slate-300 shadow rounded flex justify-center items-center relative">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-20 -rotate-180 scale-x-[-1]"
-          style={{ backgroundImage: "url('/assets/img/logoquotes.png')" }}
-        ></div>
+        <div className="absolute inset-0 bg-cover bg-center opacity-20  scale-x-[-1]">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source src="/assets/files/japanvideo quotes.webm" type="video/webm" />
+            Il tuo browser non supporta l'elemento video.
+          </video>
+        </div>
+
         <div className="p-1 text-center text-slate-800">
           <Quotes />
         </div>
@@ -50,20 +64,24 @@ function App() {
       </div>
 
       {/* Modale di Anteprima */}
-      <div className='z-50'>
-      <PreviewModal file={previewFile} onClose={closePreview} />
+      <div className="z-50">
+        <PreviewModal file={previewFile} onClose={closePreview} />
       </div>
       {/* Disclaimer */}
       <div className="footer p-2 bg-white shadow rounded text-center mt-32">
-    <p className="text-sm text-gray-600">
-      Tutte le informazioni presenti su questo sito sono di dominio pubblico
-      e condivise per uso collettivo. Si prega di non modificarle. Per
-      suggerimenti o proposte, potete contattarmi tramite la sezione
-      <a href="mailto:peppe.rubino95@gmail.com" className="ml-1 text-blue-500 hover:underline">
-        Contatti
-      </a>.
-    </p>
-  </div>
+        <p className="text-sm text-gray-600">
+          Tutte le informazioni presenti su questo sito sono di dominio pubblico
+          e condivise per uso collettivo. Si prega di non modificarle. Per
+          suggerimenti o proposte, potete contattarmi tramite la sezione
+          <a
+            href="mailto:peppe.rubino95@gmail.com"
+            className="ml-1 text-blue-500 hover:underline"
+          >
+            Contatti
+          </a>
+          .
+        </p>
+      </div>
     </div>
   );
 }
