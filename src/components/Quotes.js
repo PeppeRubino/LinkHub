@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 const Quotes = () => {
-  const quotes = [
+  useEffect(() => {
+    const quotes = [
+
     "L’istruzione è il ponte tra il caos dell’ignoranza e l’armonia della conoscenza. - ChatGPT",
     "Ogni grande progresso nasce dal coraggio di mettere in dubbio ciò che appare evidente. - ChatGPT",
     "La scienza non è un tempio da venerare, ma una bussola per esplorare l'infinito. - ChatGPT",
@@ -54,21 +56,20 @@ const Quotes = () => {
     "Il sapere è infinito perché l’uomo è fatto di desideri che non conoscono confini. - ChatGPT"
   ];
 
-  const [currentQuote, setCurrentQuote] = useState("");
+  const changeQuote = () => {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    setCurrentQuote(quotes[randomIndex]);
+  };
 
-  useEffect(() => {
-    const changeQuote = () => {
-      const randomIndex = Math.floor(Math.random() * quotes.length);
-      setCurrentQuote(quotes[randomIndex]);
-    };
+  changeQuote(); // Mostra un aforisma immediatamente
+  const interval = setInterval(changeQuote, 12000); // Cambia ogni 12 secondi
 
-    changeQuote(); // Mostra un aforisma immediatamente
-    const interval = setInterval(changeQuote, 12000); // Cambia ogni 12 secondi
+  return () => clearInterval(interval); // Pulisce l'intervallo quando il componente si smonta
+}, []); // Usa un array vuoto come dipendenza
 
-    return () => clearInterval(interval); // Pulisce l'intervallo quando il componente si smonta
-  }, [quotes]); // Aggiungi quotes come dipendenza
+const [currentQuote, setCurrentQuote] = useState("");
 
-  return <p className="text-xl italic">"{currentQuote}"</p>;
+return <p className="text-xl italic">"{currentQuote}"</p>;
 };
 
 export default Quotes;
