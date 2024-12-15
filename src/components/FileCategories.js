@@ -1,7 +1,7 @@
 import React from 'react';
 import categories from './categories'; // Importa i dati
 
-const FileCategories = ({ onPreview }) => {
+const FileCategories = ({ onPreviewFile, onDownloadFile, onLinkClick }) => {
   return (
     <div className="bg-slate-200 shadow rounded sm:grid sm:grid-cols-4 sm:gap-3">
       {categories.map((category, index) => (
@@ -17,18 +17,19 @@ const FileCategories = ({ onPreview }) => {
               category.files.map((file, fileIndex) => (
                 <li
                   key={fileIndex}
-                  className="text-white sm:mt-3 hover:text-blue-600 hover:underline cursor-pointer"
+                  className="text-white sm:mt-3 hover:text-blue-600 cursor-pointer"
                   onClick={() => {
                     if (file.name.startsWith("http://") || file.name.startsWith("https://")) {
-                      // Apri direttamente il sito in una nuova finestra
-                      window.open(file.name, "_blank", "noopener noreferrer");
+                      // Chiama la funzione per incrementare il contatore dei link aperti
+                      onLinkClick(file.name);
                     } else {
-                      // Altrimenti, passa il file al modale di anteprima
-                      onPreview(file);
+                      // Altrimenti, passa il file al modale di anteprima e incrementa i download
+                      onDownloadFile(); // Funzione per incrementare il contatore dei download
+                      onPreviewFile(file); // Funzione per la visualizzazione del file
                     }
                   }}
                 >
-                  {file.explicitname}
+                  {file.explicitname} <span className="select-none text-sm text-gray-400">({file.dateAdded})</span>
                 </li>
               ))
             ) : (
